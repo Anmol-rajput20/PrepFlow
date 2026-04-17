@@ -1,0 +1,101 @@
+.work-area-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.08);
+  border: 1px solid #e9d5ff;
+}
+
+.work-area-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.work-area-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1e293b;
+}
+
+.priority {
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.priority.high { background: #fee2e2; color: #dc2626; }
+.priority.medium { background: #fef3c7; color: #d97706; }
+.priority.low { background: #dcfce7; color: #16a34a; }
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #ede9fe;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #9333ea, #4f46e5);
+}
+
+.subtasks {
+  margin-top: 20px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+.subtask-item.overdue { background: #fee2e2; }
+.subtask-item.today { background: #fef3c7; }
+.subtask-item.upcoming { background: #dcfce7; }
+.subtask-item.completed { background: #f1f5f9; }
+
+.subtask-content {
+  flex: 1;
+}
+
+.completed-text {
+  text-decoration: line-through;
+  color: #64748b;
+}
+
+.add-subtask {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.add-subtask input {
+  padding: 14px;
+  border: 1px solid #d8b4fe;
+  border-radius: 14px;
+}
+
+.add-subtask button,
+.delete-btn {
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #9333ea, #4f46e5);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.delete-btn {
+  margin-top: 18px;
+  width: 100%;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
