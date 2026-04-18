@@ -66,7 +66,7 @@ function Dashboard() {
             <div className="hero-icon">📘</div>
 
             <div className="hero-text">
-              <h1>Student Progress Tracker</h1>
+              <h1>PrepFlow</h1>
               <p>Organize your work areas and conquer your goals! 🎯</p>
             </div>
           </div>
