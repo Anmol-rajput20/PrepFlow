@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./WorkArea.css";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import {v4 as uuidv4} from "uuid";
 
-function WorkArea({ data, onDelete }) {
+function WorkArea({ data, onDelete ,docId,userId}) {
   const [subtasks, setSubtasks] = useState(data.tasksArray || []);
   const [newTask, setNewTask] = useState("");
   const [newDeadline, setNewDeadline] = useState("");
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setSubtasks(data.tasksArray || []);
+  }, [data.tasksArray]);
+
+  
 
   // Update progress automatically
   useEffect(() => {
@@ -16,35 +25,59 @@ function WorkArea({ data, onDelete }) {
   }, [subtasks]);
 
   // Add new subtask
-  const addSubtask = () => {
+  const addSubtask = async () => {
     if (!newTask.trim() || !newDeadline) return;
 
-    const newSubtask = {
-      id: Date.now(),
-      name: newTask,
-      completed: false,
-      deadline: newDeadline,
-    };
+    const updated = [
+      ...subtasks,
+      {
+        id: uuidv4(),
+        name: newTask,
+        completed: false,
+        deadline: newDeadline,
+      },
+    ];
 
-    setSubtasks([...subtasks, newSubtask]);
+    setSubtasks(updated);
+
+    try{
+      await updateDoc(doc(db,"users",userId,"workAreas",docId), {
+        tasksArray: updated,
+      });
+    } catch(err){
+      console.error(err);
+    }
+
     setNewTask("");
     setNewDeadline("");
   };
 
   // Toggle task completion
-  const toggleSubtask = (id) => {
-    setSubtasks(
-      subtasks.map((task) =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
+  const toggleSubtask = async (id) => {
+    const updated = subtasks.map((task) =>
+      task.id === id
+        ? { ...task, completed: !task.completed }
+        : task
+
     );
+
+    setSubtasks(updated);
+
+    await updateDoc(doc(db,"users",userId,"workAreas",docId), {
+      tasksArray: updated,
+    });
   };
 
   // Delete subtask
-  const deleteSubtask = (id) => {
-    setSubtasks(subtasks.filter((task) => task.id !== id));
+  const deleteSubtask = async (id) => {
+    const updated = subtasks.filter((task) => task.id !== id);
+   
+
+    setSubtasks(updated);
+
+    await updateDoc(doc(db,"users",userId,"workAreas",docId), {
+      tasksArray : updated,
+    });
   };
 
   // Deadline status

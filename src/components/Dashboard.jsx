@@ -9,51 +9,79 @@ import {
   UserButton,
   useUser,
 } from "@clerk/clerk-react";
+import {db} from "../firebase";
+import { useEffect } from "react";
+import {collection, addDoc, getDocs, doc, deleteDoc} from "firebase/firestore";
 
 function Dashboard() {
-  const [workAreas, setWorkAreas] = useState([
-    {
-      id: 1,
-      name: "DSA",
-      priority: "High",
-      tasksArray: [
-        { id: 101, name: "Arrays", completed: true, deadline: "2026-01-20" },
-        { id: 102, name: "Linked List", completed: false, deadline: "2026-01-25" },
-        { id: 103, name: "Stack", completed: false, deadline: "2026-01-28" },
-      ],
-    },
-    {
-      id: 2,
-      name: "Classes",
-      priority: "Medium",
-      tasksArray: [
-        { id: 201, name: "Attend Lecture 1", completed: true, deadline: "2026-01-28" },
-        { id: 202, name: "Submit Assignment", completed: false, deadline: "2026-01-22" },
-      ],
-    },
-  ]);
+  const [workAreas, setWorkAreas] = useState([]);
   
   const {user} = useUser();
   const [newName, setNewName] = useState("");
   const [newPriority, setNewPriority] = useState("Medium");
 
-  const addWorkArea = () => {
-    if (!newName.trim()) return;
+  useEffect(() => {
+    const fetchWorkAreas = async () => {
+      try{
+        if (!user) return;
+        const snapshot = await getDocs(collection(db, "users",user.id,"workAreas"));
 
-    const newArea = {
-      id: Date.now(),
-      name: newName,
-      priority: newPriority,
-      tasksArray: [],
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+
+
+         
+        }));
+
+        setWorkAreas(data);
+      } catch(err) {
+        console.error(err);
+      }
     };
 
-    setWorkAreas([newArea, ...workAreas]);
-    setNewName("");
-    setNewPriority("Medium");
+    fetchWorkAreas();
+  }, [user]);
+
+  
+
+  const addWorkArea = async () => {
+    if(!newName) return;
+
+    try{
+      const docRef = await addDoc(collection(db,"users",user.id,"workAreas"), {
+        name : newName,
+        priority: newPriority,
+        tasksArray: [],
+        createdAt : new Date(),
+      });
+
+      console.log("Data sent to Firestore");
+
+      const newArea = {
+        id : docRef.id,
+        name : newName,
+        priority : newPriority,
+        tasksArray: [],
+      };
+
+      setWorkAreas([newArea, ...workAreas]);
+
+      setNewName("");
+      setNewPriority("Medium");
+    }catch(err) {
+      console.error(err);
+    }
   };
 
-  const deleteWorkArea = (id) => {
-    setWorkAreas(workAreas.filter((area) => area.id !== id));
+  const deleteWorkArea =  async (id) => {
+    try{
+      await deleteDoc(doc(db,"users",user.id,"workAreas",id));
+    
+      setWorkAreas(workAreas.filter((area) => area.id !== id));
+    } catch(err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -141,6 +169,8 @@ function Dashboard() {
               <WorkArea
                 key={area.id}
                 data={area}
+                docId={area.id}
+                userId={user?.id}
                 onDelete={deleteWorkArea}
               />
             ))}
