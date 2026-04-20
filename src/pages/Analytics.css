@@ -1,0 +1,72 @@
+.analytics-container {
+  padding: 30px;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+.analytics-container h1{
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.analytics-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  min-width: 180px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.progress-section {
+  margin-top: 30px;
+}
+
+.progress-bar {
+  width: 100%;
+  max-width: 400px;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.progress-text {
+  margin-top: 30px;
+}
+
+.chart-container {
+  margin-top: 20px;
+}
+
+.charts-grid {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Chart box */
+.chart-box {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Layout from "./components/Layout";
-// import Analytics from "./pages/Analytics";
+import Analytics from "./pages/Analytics";
 
 import {
   SignedIn,
@@ -10,13 +10,13 @@ import {
 } from "@clerk/clerk-react";
 
 function App() {
-  return (
+  return ( 
     <Router>
       <SignedIn>
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            {/* <Route path="/analytics" element={<Analytics />} /> */}
+            <Route path="/analytics" element={<Analytics />} />
           </Routes>
         </Layout>
       </SignedIn>
