@@ -11,7 +11,10 @@ import {
 } from "@clerk/clerk-react";
 import {db} from "../firebase";
 import { useEffect } from "react";
-import {collection, addDoc, getDocs, doc, deleteDoc} from "firebase/firestore";
+import {collection, addDoc, getDocs, doc, deleteDoc,setDoc} from "firebase/firestore";
+import {messaging} from "../firebase-messaging";
+import {getToken} from "firebase/messaging";
+
 
 function Dashboard() {
   const [workAreas, setWorkAreas] = useState([]);
@@ -29,8 +32,6 @@ function Dashboard() {
         const data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-
-
          
         }));
 
@@ -41,6 +42,12 @@ function Dashboard() {
     };
 
     fetchWorkAreas();
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      requestPermission();
+    }
   }, [user]);
 
   
@@ -83,6 +90,34 @@ function Dashboard() {
       console.error(err);
     }
   };
+
+  const requestPermission = async () => {
+    try{
+      const permission = await Notification.requestPermission();
+
+      if (permission === "granted") {
+        const token = await getToken(messaging, {
+          vapidKey: "BJsbafzFhF9QX7BLfMgCEUd2xKHH15Om6EeiZ6tt3V5k8VOYib2UbCrh6k16WWSMOuDlfiwCKbixaUgqMHwYAr8",
+        });
+
+        console.log("FCM token: ",token);
+
+        if(user?.id){
+          await setDoc(
+            doc(db,"users",user.id),
+            {fcmToken: token},
+            {merge: true}
+          );
+        }
+      } else{
+        console.log("Permission denied");
+      }
+    } catch(err) {
+      console.error(err);
+    }
+  };
+
+
 
   return (
     <>
