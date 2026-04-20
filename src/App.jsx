@@ -1,4 +1,8 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
+import Layout from "./components/Layout";
+// import Analytics from "./pages/Analytics";
+
 import {
   SignedIn,
   SignedOut,
@@ -7,15 +11,20 @@ import {
 
 function App() {
   return (
-    <>
+    <Router>
       <SignedIn>
-        <Dashboard />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            {/* <Route path="/analytics" element={<Analytics />} /> */}
+          </Routes>
+        </Layout>
       </SignedIn>
 
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
-    </>
+    </Router>
   );
 }
 
