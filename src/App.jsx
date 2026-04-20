@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Layout from "./components/Layout";
 import Analytics from "./pages/Analytics";
+import CalendarPage from "./pages/Calendar";
 
 import {
   SignedIn,
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/calendar" element={<CalendarPage />} />
           </Routes>
         </Layout>
       </SignedIn>
