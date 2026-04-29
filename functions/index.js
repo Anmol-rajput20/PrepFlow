@@ -1,16 +1,18 @@
-const functions = require("firebase-functions");
+const { onSchedule } = require("firebase-functions/v2/scheduler");
 const admin = require("firebase-admin");
 
 admin.initializeApp();
 
-exports.checkDeadlines = functions.pubsub
-  .schedule("every 1 hours")
-  .onRun(async () => {
+exports.checkDeadlines = onSchedule(
+  {
+    schedule: "every 1 hours",
+    timeZone: "Asia/Kolkata",
+  },
+  async () => {
     const db = admin.firestore();
+    const today = new Date().toISOString().split("T")[0];
 
     const usersSnapshot = await db.collection("users").get();
-
-    const today = new Date().toISOString().split("T")[0];
 
     for (const userDoc of usersSnapshot.docs) {
       const userId = userDoc.id;
@@ -30,21 +32,21 @@ exports.checkDeadlines = functions.pubsub
         const tasks = area.tasksArray || [];
 
         for (const task of tasks) {
-          if (task.completed) continue;
+          if (task.completed || !task.deadline) continue;
 
           if (task.deadline <= today) {
-            const payload = {
+            await admin.messaging().send({
+              token,
               notification: {
-                title: "⏰ Task Reminder",
-                body: `${task.name} is due or overdue!`,
+                title: "⏰ PrepFlow Reminder",
+                body: `${task.name} is due or overdue in ${area.name}.`,
               },
-            };
-
-            await admin.messaging().sendToDevice(token, payload);
+            });
           }
         }
       }
     }
 
     return null;
-  });
+  }
+);

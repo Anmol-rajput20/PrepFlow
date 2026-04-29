@@ -204,6 +204,7 @@ function WorkArea({ data, onDelete ,docId,userId}) {
           <input
             type="date"
             value={newDeadline}
+            min={new Date().toISOString().split("T")[0]}
             onChange={(e) => setNewDeadline(e.target.value)}
           />
 

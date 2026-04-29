@@ -3,6 +3,7 @@ import Dashboard from "./components/Dashboard";
 import Layout from "./components/Layout";
 import Analytics from "./pages/Analytics";
 import CalendarPage from "./pages/Calendar";
+import Profile from "./pages/Profile";
 
 import {
   SignedIn,
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </Layout>
       </SignedIn>
