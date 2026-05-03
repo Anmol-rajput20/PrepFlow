@@ -246,35 +246,37 @@ body {
   }
 }
 
+.work-areas-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
 @media (max-width: 600px) {
-  .hero-left {
+  .dashboard-container {
+    padding: 16px;
+  }
+
+  .work-areas-list {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .hero-card {
-    padding: 24px;
+  .hero-text h1 {
+    font-size: 2rem;
   }
 
-  .hero-right {
-    justify-content: flex-start;
-    flex-wrap: wrap;
+  .form-row {
+    flex-direction: column;
   }
 
-  .signin-btn,
-  .signup-btn {
+  .form-row input,
+  .form-row select,
+  .form-row button {
     width: 100%;
   }
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.welcome-text {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #9333ea;
 }

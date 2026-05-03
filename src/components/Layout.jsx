@@ -1,14 +1,12 @@
 import React from "react";
 import Sidebar from "./Sidebar";
+import "./Layout.css";
 
 function Layout({ children }) {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="layout">
       <Sidebar />
-
-      <div style={{ marginLeft: "240px", width: "100%" }}>
-        {children}
-      </div>
+      <main className="main-content">{children}</main>
     </div>
   );
 }

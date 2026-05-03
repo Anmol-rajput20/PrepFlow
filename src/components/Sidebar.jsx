@@ -15,7 +15,7 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
-      <div className="logo">🚀 PrepFlow</div>
+      <div className="logo">🚀 Navbar</div>
 
       <div className="menu">
         {menu.map((item) => (

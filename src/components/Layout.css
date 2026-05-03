@@ -1,0 +1,19 @@
+.layout {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}

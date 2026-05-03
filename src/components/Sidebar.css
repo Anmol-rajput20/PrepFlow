@@ -46,3 +46,27 @@
 .icon {
   font-size: 18px;
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .menu {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .menu-item {
+    white-space: nowrap;
+  }
+}

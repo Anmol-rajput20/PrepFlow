@@ -3,6 +3,7 @@ import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useUser } from "@clerk/clerk-react";
 
+
 import {
   PieChart,
   Pie,
@@ -13,6 +14,7 @@ import {
   Bar,
   XAxis,
   YAxis,
+  ResponsiveContainer,
 } from "recharts";
 
 import "./Analytics.css";
@@ -136,14 +138,18 @@ function Analytics() {
       </div>
 
       {/* Bar Chart */}
-      <div className="chart-section">
+      <div className="chart-box">
         <h2>Work Area Activity</h2>
-        <BarChart width={500} height={300} data={areaData}>
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="tasks" fill="#3b82f6" />
-        </BarChart>
+        <div className="chart-wrapper">
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={areaData}>
+              <XAxis dataKey="name"/>
+              <YAxis/>
+              <Tooltip/>
+              <Bar dataKey="tasks" fill="#3b82f6"/>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

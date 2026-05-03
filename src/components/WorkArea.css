@@ -99,3 +99,27 @@
   width: 100%;
   background: linear-gradient(90deg, #ef4444, #dc2626);
 }
+
+@media (max-width: 600px) {
+  .work-area-card {
+    padding: 18px;
+  }
+
+  .work-area-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .add-subtask {
+    flex-direction: column;
+  }
+
+  .add-subtask input,
+  .add-subtask button {
+    width: 100%;
+  }
+
+  .subtask-item {
+    align-items: flex-start;
+  }
+}

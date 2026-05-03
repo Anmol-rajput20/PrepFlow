@@ -141,3 +141,55 @@
 .done-dot {
   background: #22c55e; /* green */
 }
+
+.calendar-container {
+  padding: 30px;
+  min-height: 100vh;
+}
+
+.calendar-layout {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.react-calendar {
+  border-radius: 18px;
+  padding: 16px;
+  border: none;
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.1);
+}
+
+.task-panel {
+  flex: 1;
+  min-width: 280px;
+}
+
+.task-card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  margin-top: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 16px;
+  }
+
+  .calendar-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .react-calendar {
+    width: 100% !important;
+  }
+
+  .task-panel {
+    width: 100%;
+    min-width: 0;
+  }
+}
